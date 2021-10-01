@@ -10,7 +10,7 @@ import com.Banking.Model.Transaction;
 
 public class TransactionDao {
 
-	public void addTransaction(long accountNo, String date, String description, String type, double amount) {
+	public void addTransaction(Transaction transaction) {
 
 		try {
 
@@ -18,18 +18,20 @@ public class TransactionDao {
 			PreparedStatement pst = con.prepareStatement(
 					"insert into transaction(accountNo, date, description, type, amount) values(?,?,?,?,?)");
 
-			pst.setLong(1, accountNo);
-			pst.setString(2, date);
-			pst.setString(3, description);
-			pst.setString(4, type);
-			pst.setDouble(5, amount);
+			pst.setLong(1, transaction.getAccountNo());
+			pst.setString(2, transaction.getDate());
+			pst.setString(3, transaction.getDescription());
+			pst.setString(4,transaction.getType());
+			pst.setDouble(5, transaction.getAmount());
 
 			pst.executeUpdate();
 			// System.out.println(rows + " rows updated");
 
 			con.commit();
 
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			System.out.println("Error in adding account");
 			e.printStackTrace();
 		}
@@ -41,7 +43,7 @@ public class TransactionDao {
 
 			Connection con = DbConnection.connect();
 			PreparedStatement pst = con
-					.prepareStatement("Select * from transaction where accountNo = ? order by transactionId desc ");
+					.prepareStatement("Select * from transaction where accountNo = ? order by transactionId desc Limit 20");
 			pst.setLong(1, accountNo);
 			ResultSet rs = pst.executeQuery();
 

@@ -6,24 +6,26 @@ import java.sql.ResultSet;
 
 import com.Banking.Model.Account;
 
-public class AccountDao {
-
-	public void addAccount(double balance, String accountType) {
+public class AccountDao 
+{
+	public void addAccount(Account account) {
 
 		try {
 
 			Connection con = DbConnection.connect();
 			PreparedStatement pst = con.prepareStatement("insert into account(balance, accountType) values(?,?)");
 
-			pst.setDouble(1, balance);
-			pst.setString(2, accountType);
+			pst.setDouble(1, account.getBalance());
+			pst.setString(2, account.getAccountType());
 
 			pst.executeUpdate();
 			//System.out.println(rows + " rows updated");
 
 			con.commit();
 
-		} catch (Exception e) {
+		} 
+		catch (Exception e) 
+		{
 			System.out.println("Error in adding account");
 			e.printStackTrace();
 		}
@@ -52,14 +54,14 @@ public class AccountDao {
 
 	}
 
-	public void deposit(long accountNo, double balance) {
+	public void updateBalance(Account account) {
 
 		try {
 
 			Connection con = DbConnection.connect();
 			PreparedStatement pst = con.prepareStatement("update account set  balance = ?  where accountNo =? ");
-			pst.setDouble(1, balance);
-			pst.setLong(2, accountNo);
+			pst.setDouble(1, account.getBalance());
+			pst.setLong(2, account.getAccountNo());
 
 			pst.executeUpdate();
 			//System.out.println(rows + " rows updated");
@@ -73,14 +75,14 @@ public class AccountDao {
 
 	}
 
-	public void withdraw(long accountNo, double balance) {
+	public void withdraw(Account account) {
 
 		try {
 
 			Connection con = DbConnection.connect();
 			PreparedStatement pst = con.prepareStatement("update account set  balance = ?  where accountNo =? ");
-			pst.setDouble(1, balance);
-			pst.setLong(2, accountNo);
+			pst.setDouble(1, account.getBalance());
+			pst.setLong(2, account.getAccountNo());
 
 			pst.executeUpdate();
 			//System.out.println(rows + " rows updated");

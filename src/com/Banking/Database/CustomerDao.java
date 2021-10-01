@@ -8,22 +8,23 @@ import com.Banking.Model.Customer;
 
 public class CustomerDao {
 
-	public void addCustomer(String name, String dob, long mobileNo, String panCard, String address) {
+	public void addCustomer(Customer customer) {
 
 		try {
 			Connection con = DbConnection.connect();
 
-			PreparedStatement pst = con
-					.prepareStatement("insert into customer(name, dob, mobileNo, panCard , address) values(?,?,?,?,?)");
+			PreparedStatement pst = con.prepareStatement(
+					"insert into customer(name, dob, mobileNo, panCard , address,password) values(?,?,?,?,?,?)");
 
-			pst.setString(1, name);
-			pst.setString(2, dob);
-			pst.setLong(3, mobileNo);
-			pst.setString(4, panCard);
-			pst.setString(5, address);
+			pst.setString(1, customer.getName());
+			pst.setString(2, customer.getDob());
+			pst.setString(3, customer.getMobileNo());
+			pst.setString(4, customer.getPanCard());
+			pst.setString(5, customer.getAddress());
+			pst.setString(6, customer.getPassword());
 
 			pst.executeUpdate();
-			//System.out.println(rows + " rows updated");
+			// System.out.println(rows + " rows updated");
 			con.commit();
 
 		} catch (Exception e) {
@@ -64,7 +65,7 @@ public class CustomerDao {
 			pst.setLong(2, customerId);
 
 			pst.executeUpdate();
-			//System.out.println(rows + " rows updated");
+			// System.out.println(rows + " rows updated");
 			con.commit();
 
 		} catch (Exception e) {
@@ -88,11 +89,11 @@ public class CustomerDao {
 				String password = rs.getString("password");
 				String name = rs.getString("name");
 				String dob = rs.getString("dob");
-				Long  mobileNo= rs.getLong("mobileNo");
+				String mobileNo = rs.getString("mobileNo");
 				String panCard = rs.getString("panCard");
 				String address = rs.getString("address");
 
-				Customer customer = new Customer(customerId,password, name, dob, mobileNo, panCard, address);
+				Customer customer = new Customer(customerId, password, name, dob, mobileNo, panCard, address);
 				return customer;
 			}
 

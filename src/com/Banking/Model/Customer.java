@@ -6,7 +6,7 @@ public class Customer {
 	private String password;
 	private String name;
 	private String dob;
-	private long mobileNo;
+	private String mobileNo;
 	private String panCard;
 	private String address;
 
@@ -14,7 +14,7 @@ public class Customer {
 		super();
 	}
 
-	public Customer(long customerId, String password, String name, String dob, long mobileNo, String panCard,
+	public Customer(long customerId, String password, String name, String dob, String mobileNo, String panCard,
 			String address) {
 		super();
 		this.customerId = customerId;
@@ -25,6 +25,18 @@ public class Customer {
 		this.panCard = panCard;
 		this.address = address;
 	}
+	
+	public Customer(String password, String name, String dob, String mobileNo, String panCard,
+			String address) {
+		super();
+		this.password = password;
+		this.name = name;
+		this.dob = dob;
+		this.mobileNo = mobileNo;
+		this.panCard = panCard;
+		this.address = address;
+	}
+	
 
 	public long getCustomerId() {
 		return customerId;
@@ -58,11 +70,11 @@ public class Customer {
 		this.dob = dob;
 	}
 
-	public long getMobileNo() {
+	public String getMobileNo() {
 		return mobileNo;
 	}
 
-	public void setMobileNo(long mobileNo) {
+	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
 
